@@ -222,7 +222,7 @@ namespace HelloWorld
             else
             {
                 Console.WriteLine("Hop le");
-                Console.WriteLine(GenerateRandomLetters());
+                Console.WriteLine(GenerateOTP());
             }
         }
         private bool IsValidEmail(string email)
@@ -262,7 +262,7 @@ namespace HelloWorld
             string pattern = @"[!@#$%^&*(),.?\:{ }|<>]";
             return Regex.IsMatch(password, pattern);
         }
-        public  string GenerateRandomLetters()
+        public  string GenerateOTP()
         {
             const string letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
             Random random = new Random();
