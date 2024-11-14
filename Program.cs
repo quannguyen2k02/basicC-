@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Text.RegularExpressions;
 
 namespace HelloWorld
 {
@@ -171,16 +172,123 @@ namespace HelloWorld
             }
         }
     }
+    class Validate
+    {
+        public string Email { get; set; }
+        public string Password { get; set; }
+        public void Input()
+        {
+            Console.Write("Nhap email: ");
+            Email = Console.ReadLine();
+            Console.Write("Nhap password: ");
+            Password = Console.ReadLine();
+        }
+        public void Login()
+        {
+            List<String> result = new List<string>();
+            bool checkLength = ValidLengthPassword(Password);
+            bool checkUpperCase = ValidUpperCase(Password);
+            bool checkLowerCase = ValidLowerCase(Password);
+            bool checkNumber = validNumber(Password);
+            bool checkSpecialChar = ValidSpecialCharacter(Password);
+
+            if(!checkLength)
+            {
+                result.Add("Do dai toi thieu 6 ky tu");
+            }
+            if(!checkUpperCase)
+            {
+                result.Add("Toi thieu 1 chu cai viet hoa");
+            }
+            if (!checkLowerCase)
+            {
+                result.Add("Toi thieu 1 chu cai viet thuong");
+
+            }
+            if(!checkNumber) {
+                result.Add("Toi thieu co 1 so");
+            }
+            if(!checkSpecialChar)
+            {
+                result.Add("Toi thieu co 1 ky tu dac biet");
+            }
+            if (result.Count > 0)
+            {
+                foreach(String s in result)
+                {
+                    Console.WriteLine($"{s}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Hop le");
+                Console.WriteLine(GenerateRandomLetters());
+            }
+        }
+        private bool IsValidEmail(string email)
+        {
+            // Regular expression để kiểm tra định dạng email
+            string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+            return Regex.IsMatch(email, pattern);
+        }
+        private bool ValidLengthPassword(string password)
+        {
+            if(password.Length >= 6)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private bool ValidUpperCase(string password)
+        {
+            string pattern = @"[A-Z]";
+            return Regex.IsMatch(password, pattern);
+        }
+        private bool ValidLowerCase(string password)
+        {
+            string pattern = @"[a-z]";
+            return Regex.IsMatch(password, pattern);
+        }
+        private bool validNumber(string password)
+        {
+            string pattern = @"\d";
+            return Regex.IsMatch(password, pattern);
+        }
+        private bool ValidSpecialCharacter(string password)
+        {
+            string pattern = @"[!@#$%^&*(),.?\:{ }|<>]";
+            return Regex.IsMatch(password, pattern);
+        }
+        public  string GenerateRandomLetters()
+        {
+            const string letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+            Random random = new Random();
+            char[] result = new char[6];
+
+            for (int i = 0; i < result.Length; i++)
+            {
+                result[i] = letters[random.Next(letters.Length)];
+            }
+
+            return new string(result);
+        }
+    }
     class Program
     {
         static void Main(string[] args)
         {
             //Calculator cal = new Calculator(5, 3);
             //Console.WriteLine(cal.Chia());
-            PhanSo a = new PhanSo(5, 8);
-            PhanSo b = new PhanSo(6, 7);
-            PhanSo c = a + b;
-            Console.WriteLine(c.ToString());
+            //PhanSo a = new PhanSo(5, 8);
+            //PhanSo b = new PhanSo(6, 7);
+            //PhanSo c = a + b;
+            //Console.WriteLine(c.ToString());
+            Validate a = new Validate();
+            a.Input();
+            a.Login();
         }
     }
 }
