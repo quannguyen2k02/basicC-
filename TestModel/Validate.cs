@@ -19,17 +19,20 @@ namespace BasicC_.TestModel
             Console.Write("Nhap password: ");
             Password = Console.ReadLine() ?? string.Empty;
         }
-
-        
         public (string, string, List<string>) Login()
         {
             var result = new List<string>();
             bool checkLength = ValidLengthPassword(Password);
             bool checkUpperCase = ValidUpperCase(Password);
             bool checkLowerCase = ValidLowerCase(Password);
-            bool checkNumber = validNumber(Password);
+            bool checkNumber = ValidNumber(Password);
+            bool checkEmail = ValidEmail(Email);
             bool checkSpecialChar = ValidSpecialCharacter(Password);
+            if (!checkEmail)
+            {
+                result.Add("Email khong hop le");
 
+            }
             if (!checkLength)
             {
                 result.Add("Do dai toi thieu 6 ky tu");
@@ -60,10 +63,9 @@ namespace BasicC_.TestModel
                 return ("Thanh cong", GenerateOTP(), result);
             }
         }
-        private bool IsValidEmail(string email)
+        private bool ValidEmail(string email)
         {
-            string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
-            return Regex.IsMatch(email, pattern);
+            return Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$");
         }
         private bool ValidLengthPassword(string password) => password.Length >= 6;
         //{
@@ -85,7 +87,7 @@ namespace BasicC_.TestModel
         {
             return Regex.IsMatch(password, @"[a-z]");
         }
-        private bool validNumber(string password)
+        private bool ValidNumber(string password)
         {
             return Regex.IsMatch(password, @"\d");
         }
