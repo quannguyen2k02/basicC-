@@ -11,8 +11,6 @@ namespace BasicC_.TestModel
         private int tuso, mauso;
         public PhanSo(int tu, int mau)
         {
-            try
-            {
                 if (mau == 0)
                 {
                     throw new DivideByZeroException();
@@ -20,12 +18,6 @@ namespace BasicC_.TestModel
                 tuso = tu;
                 mauso = mau;
                 Rutgon();
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex);
-                mauso = 1;
-            }
         }
         public void Rutgon()
         {

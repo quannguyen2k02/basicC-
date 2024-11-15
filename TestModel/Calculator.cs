@@ -29,8 +29,7 @@ namespace BasicC_.TestModel
         }
         public double Chia()
         {
-            try
-            {
+
                 if (b == 0)
                 {
                     throw new DivideByZeroException();
@@ -39,12 +38,8 @@ namespace BasicC_.TestModel
                 {
                     return a / b;
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-                return 0;
-            }
+       
+
         }
     }
 }
